@@ -26,47 +26,25 @@ collectors:
         query: |
           SELECT
               query,
-                  calls,
-                  rows,
-                  shared_blks_hit,
-                  shared_blks_read,
-                  ROUND(
-                    100.0 * shared_blks_hit / NULLIF(shared_blks_hit + shared_blks_read, 0)::NUMERIC,
-                    2
-                  ) AS hit_percent,
-                  ROUND(mean_exec_time::NUMERIC, 2) AS avg_time_ms
+              queryid,
+              calls,
+              rows,
+              shared_blks_hit,
+              shared_blks_read,
+              ROUND(
+                100.0 * shared_blks_hit / NULLIF(shared_blks_hit + shared_blks_read, 0)::NUMERIC,
+                2
+              ) AS hit_percent,
+              ROUND(mean_exec_time::NUMERIC, 2) AS avg_time_ms
           FROM pg_stat_statements
           WHERE shared_blks_hit + shared_blks_read > 100
           ORDER BY hit_percent ASC NULLS LAST
-          LIMIT 10;
+          LIMIT 20
         metrics:
-
-          - name: calls
-            usage: COUNTER
-            value: calls
-            labels:
-              - query
-
-          - name: rows
-            usage: COUNTER
-            value: rows
-            labels:
-              - query
-
-          - name: shared_blks_hit
-            usage: COUNTER
-            value: shared_blks_hit
-            labels:
-              - query
-
-          - name: shared_blks_read
-            usage: COUNTER
-            value: shared_blks_read
-            labels:
-              - query
-
-          - name: avg_exec_time_ms
+          - name: hit_percent
             usage: GAUGE
-            value: mean_exec_time
+            value: hit_percent
             labels:
               - query
+              - queryid
+            description: "Percent shared blocks hit"
