@@ -1,0 +1,14 @@
+services:
+  pgscv:
+    image: cherts/pgscv:v0.15.2
+    container_name: pgscv
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - PGSCV_LISTEN_ADDRESS=0.0.0.0:9890
+    volumes:
+      - ./pgscv.yaml:/etc/pgscv/pgscv.yaml:ro
+      - /opt/postgresql:/var/lib/postgresql/data:ro
+      - /opt/minervakms/postgresql.conf:/etc/postgresql.conf:ro
+    command:
+      - --config-file=/etc/pgscv/pgscv.yaml
