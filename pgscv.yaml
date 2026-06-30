@@ -27,6 +27,7 @@ collectors:
           SELECT
               query,
               queryid,
+              dbid,
               calls,
               rows,
               shared_blks_hit,
@@ -56,6 +57,7 @@ collectors:
               round(total_exec_time::numeric, 2)               AS total_ms,
               calls,
               queryid,
+              dbid,
               round(mean_exec_time::numeric, 2)                AS mean_ms,
               round(stddev_exec_time::numeric, 2)              AS stddev_ms,
               round((total_exec_time / sum(total_exec_time)
