@@ -47,6 +47,7 @@ collectors:
             labels:
               - query
               - queryid
+              - dbid
             description: "Percent shared blocks hit"
 
       total_percent_time_cpu:  # сколько % всего времени CPU/exec ушло именно на этот SQL
@@ -74,5 +75,6 @@ collectors:
               - mean_ms
               - stddev_ms
               - query
+              - dbid
             description: "Percent total time cpu"
 
