@@ -57,12 +57,12 @@ collectors:
               round(total_exec_time::numeric, 2)               AS total_ms,
               calls,
               queryid,
-              dbid,
               round(mean_exec_time::numeric, 2)                AS mean_ms,
               round(stddev_exec_time::numeric, 2)              AS stddev_ms,
               round((total_exec_time / sum(total_exec_time)
                   OVER () * 100)::numeric, 1)                  AS pct_total_time_cpu,
-              left(query, 120)                                 AS query
+              left(query, 120)                                 AS query,
+              dbid
           FROM pg_stat_statements
           ORDER BY pct_total_time_cpu DESC
           LIMIT 20
