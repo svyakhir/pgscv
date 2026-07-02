@@ -22,7 +22,7 @@ SHOW config_file;
 
 ### Настройка Explain
 shared_preload_libraries = 'pg_stat_statements, auto_explain'
-
+```conf
 #------------------------------------------------------------------------------
 # EXPLAIN
 #------------------------------------------------------------------------------
@@ -41,3 +41,4 @@ auto_explain.log_nested_statements = on
 logging_collector = on
 log_directory = 'log'
 log_filename = 'postgresql-%Y-%m-%d.log'
+```
